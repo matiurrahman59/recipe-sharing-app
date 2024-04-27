@@ -18,22 +18,22 @@ export const popularCreators = [
 	},
 	{
 		id: 4,
-		name: 'Roberta Anny',
+		name: 'Mac Anny',
 		image: Images.user4,
 	},
 	{
 		id: 5,
-		name: 'Roberta Anny',
+		name: 'Sayad Rahman',
 		image: Images.user4,
 	},
 	{
 		id: 6,
-		name: 'Roberta Anny',
+		name: 'Ahmed Safi',
 		image: Images.user4,
 	},
 	{
 		id: 7,
-		name: 'Roberta Anny',
+		name: 'Mahadi Hasan',
 		image: Images.user4,
 	},
 ]

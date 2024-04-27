@@ -4,6 +4,7 @@ import SectionHeader from './SectionHeader'
 import { categoryList } from '@/data'
 import { colors } from '@/theme'
 import CustomText from './CustomText'
+import PopularRecipeList from './PopularRecipeList'
 
 interface PopularRecipeSectionProps {}
 
@@ -11,7 +12,7 @@ const PopularRecipeSection: FC<PopularRecipeSectionProps> = ({}) => {
 	const [activeCategory, setActiveCategory] = useState(2)
 
 	return (
-		<View style={{ paddingTop: 24 }}>
+		<>
 			<SectionHeader label='Popular category' />
 			<View
 				style={{
@@ -58,8 +59,8 @@ const PopularRecipeSection: FC<PopularRecipeSectionProps> = ({}) => {
 				/>
 			</View>
 
-			{/* <PopularCategoryList data={popularCategory} /> */}
-		</View>
+			<PopularRecipeList />
+		</>
 	)
 }
 

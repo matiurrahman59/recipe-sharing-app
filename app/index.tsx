@@ -12,10 +12,12 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { colors } from '@/theme'
 import { onBoardingImage } from '@/data/images'
 import CustomText from '@/components/CustomText'
+import { StatusBar } from 'expo-status-bar'
 
 export default function WelcomeScreen() {
 	return (
 		<View style={$container}>
+			<StatusBar backgroundColor='transparent' />
 			<Image source={onBoardingImage} style={$image} />
 			<LinearGradient
 				colors={[colors.transparent, colors.palette.overlay]}

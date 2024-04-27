@@ -1,6 +1,6 @@
 import { View, Text, TextStyle, TextProps } from 'react-native'
 import React, { FC } from 'react'
-import { typography } from '@/theme'
+import { colors, typography } from '@/theme'
 
 interface CustomTextProps {
 	children: React.ReactNode
@@ -28,7 +28,7 @@ const CustomText: FC<CustomTextProps> = ({
 					fontFamily: bold ? typography.fonts.bold : typography.fonts.regular,
 					fontSize: size,
 					lineHeight: lineHeight,
-					color: color,
+					color: color || colors.palette.neutral90,
 				},
 				customProps,
 			]}

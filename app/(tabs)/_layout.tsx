@@ -5,6 +5,7 @@ import { Pressable } from 'react-native'
 
 import { AntDesign, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '@/theme'
+import TabBarAdvancedButton from '@/components/TabBarAdvancedButton'
 
 function TabBarIcon(props: {
 	name: React.ComponentProps<typeof FontAwesome>['name']
@@ -48,13 +49,7 @@ export default function TabLayout() {
 				name='createRecipe'
 				options={{
 					title: 'Create recipe',
-					tabBarIcon: ({ color }) => (
-						<MaterialCommunityIcons
-							name='bookmark-minus-outline'
-							size={24}
-							color={color}
-						/>
-					),
+					tabBarButton: props => <TabBarAdvancedButton {...props} />,
 				}}
 			/>
 			<Tabs.Screen

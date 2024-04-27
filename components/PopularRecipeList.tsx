@@ -4,6 +4,7 @@ import { colors } from '@/theme'
 import { popularCategory } from '@/data'
 import CustomText from './CustomText'
 import { Feather } from '@expo/vector-icons'
+import BookmarkButton from './BookmarkButton'
 
 interface PopularRecipeListProps {}
 
@@ -14,76 +15,82 @@ const PopularRecipeList: FC<PopularRecipeListProps> = ({}) => {
 			showsHorizontalScrollIndicator={false}
 			data={popularCategory}
 			renderItem={({ item }) => (
-				<View>
-					<TouchableOpacity
+				<TouchableOpacity
+					style={{
+						backgroundColor: colors.palette.neutral10,
+						width: 150,
+						marginTop: 70,
+						marginRight: 16,
+						paddingTop: 40,
+						paddingBottom: 12,
+						borderRadius: 12,
+						position: 'relative',
+					}}
+				>
+					<View
 						style={{
-							backgroundColor: colors.palette.neutral10,
-							width: 150,
-							marginTop: 70,
-							marginRight: 16,
-							paddingTop: 40,
-							paddingBottom: 12,
-							borderRadius: 12,
-							position: 'relative',
+							position: 'absolute',
+							top: '-50%',
+							left: 0,
+							right: 0,
+							alignItems: 'center',
 						}}
 					>
-						<View
-							style={{
-								position: 'absolute',
-								top: '-50%',
-								left: 0,
-								right: 0,
-								alignItems: 'center',
-							}}
-						>
-							<Image
-								source={item.image}
-								style={{ height: 110, width: 110, borderRadius: 100 }}
-							/>
-						</View>
-						<CustomText bold size={14} lineHeight={19.6}>
-							{item.title}
+						<Image
+							source={item.image}
+							style={{ height: 110, width: 110, borderRadius: 100 }}
+						/>
+					</View>
+					<CustomText
+						bold
+						size={14}
+						lineHeight={19.6}
+						customProps={{
+							textAlign: 'center',
+							paddingHorizontal: 8,
+						}}
+					>
+						{item.title}
+					</CustomText>
+					<View
+						style={{
+							marginTop: 18,
+							paddingHorizontal: 12,
+						}}
+					>
+						<CustomText size={16} color={colors.palette.neutral30}>
+							{item.duration}
 						</CustomText>
 						<View
 							style={{
-								marginTop: 18,
-								paddingHorizontal: 12,
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignItems: 'center',
 							}}
 						>
-							<CustomText size={16} color={colors.palette.neutral30}>
-								{item.duration}
+							<CustomText bold size={12}>
+								10 Mins
 							</CustomText>
-							<View
+
+							<TouchableOpacity
 								style={{
-									flexDirection: 'row',
-									justifyContent: 'space-between',
+									backgroundColor: colors.palette.white,
+									height: 28,
+									width: 28,
 									alignItems: 'center',
+									justifyContent: 'center',
+									borderRadius: 100,
 								}}
 							>
-								<CustomText bold size={12}>
-									10 Mins
-								</CustomText>
-
-								<TouchableOpacity
-									style={{
-										backgroundColor: colors.palette.white,
-										height: 28,
-										width: 28,
-										alignItems: 'center',
-										justifyContent: 'center',
-										borderRadius: 100,
-									}}
-								>
-									<Feather
-										name='bookmark'
-										size={16}
-										color={colors.palette.neutral90}
-									/>
-								</TouchableOpacity>
-							</View>
+								<Feather
+									name='bookmark'
+									size={16}
+									color={colors.palette.neutral90}
+								/>
+							</TouchableOpacity>
 						</View>
-					</TouchableOpacity>
-				</View>
+					</View>
+				</TouchableOpacity>
 			)}
 			keyExtractor={item => item.title}
 			contentContainerStyle={{
