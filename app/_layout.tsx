@@ -1,4 +1,5 @@
-import { customFontsToLoad } from '@/theme'
+import { colors, customFontsToLoad } from '@/theme'
+import { Feather } from '@expo/vector-icons'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -43,9 +44,28 @@ function RootLayoutNav() {
 		<Stack
 			screenOptions={{
 				headerShown: false,
+				headerShadowVisible: false,
 			}}
 		>
 			<Stack.Screen name='index' />
+			<Stack.Screen
+				name='[id]'
+				options={{
+					headerShown: true,
+					headerTitle: '',
+					headerRight: () => (
+						<Feather
+							name='more-horizontal'
+							size={24}
+							color={colors.palette.neutral100}
+							style={{
+								marginRight: 20,
+							}}
+						/>
+					),
+				}}
+			/>
+			<Stack.Screen name='(tabs)' />
 		</Stack>
 	)
 }

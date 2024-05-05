@@ -1,10 +1,14 @@
-import { View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function Page() {
+const Page = () => {
 	return (
 		<View>
 			<Text>Page</Text>
 		</View>
 	)
 }
+
+export default Page
+
+const styles = StyleSheet.create({})

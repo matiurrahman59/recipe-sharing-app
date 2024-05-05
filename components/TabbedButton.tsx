@@ -10,14 +10,14 @@ import { FC } from 'react'
 import { colors } from '@/theme'
 import CustomText from './CustomText'
 
-interface NotificationTabbedButtonProps {
+interface TabbedButtonProps {
 	title: string
 	index: number
 	currentSlideIndex: number
 	onPress: ((event: GestureResponderEvent) => void) | undefined
 }
 
-const NotificationTabbedButton: FC<NotificationTabbedButtonProps> = ({
+const TabbedButton: FC<TabbedButtonProps> = ({
 	title,
 	index,
 	currentSlideIndex,
@@ -54,4 +54,4 @@ const NotificationTabbedButton: FC<NotificationTabbedButtonProps> = ({
 	)
 }
 
-export default NotificationTabbedButton
+export default TabbedButton

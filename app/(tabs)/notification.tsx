@@ -1,14 +1,38 @@
 import { View } from 'react-native'
 import React, { useState } from 'react'
-import { colors } from '@/theme'
-import NotificationTabbedButton from '@/components/NotificationTabbedButton'
-import CustomText from '@/components/CustomText'
+import { Feather } from '@expo/vector-icons'
+import { Stack } from 'expo-router'
+
 import NotificationMessage from '@/components/NotificationMessage'
+import CustomText from '@/components/CustomText'
+import { colors } from '@/theme'
+import TabbedButton from '@/components/TabbedButton'
 
 export default function Page() {
 	const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
 	return (
 		<View style={{ backgroundColor: colors.palette.white, flex: 1 }}>
+			{/* custom header */}
+			<Stack.Screen
+				options={{
+					headerRight: () => (
+						<Feather
+							name='align-right'
+							size={24}
+							color={colors.palette.neutral100}
+							style={{
+								marginRight: 20,
+							}}
+						/>
+					),
+					headerLeft: () => (
+						<CustomText bold size={24} customProps={{ marginLeft: 20 }}>
+							Notifications
+						</CustomText>
+					),
+				}}
+			/>
+
 			<View style={{ marginHorizontal: 20 }}>
 				{/* selected tabbed button */}
 				<View
@@ -19,21 +43,21 @@ export default function Page() {
 						gap: 8,
 					}}
 				>
-					<NotificationTabbedButton
+					<TabbedButton
 						title='All'
 						index={0}
 						currentSlideIndex={currentSlideIndex}
 						onPress={() => setCurrentSlideIndex(0)}
 					/>
 
-					<NotificationTabbedButton
+					<TabbedButton
 						title='Unread'
 						index={1}
 						currentSlideIndex={currentSlideIndex}
 						onPress={() => setCurrentSlideIndex(1)}
 					/>
 
-					<NotificationTabbedButton
+					<TabbedButton
 						title='Read'
 						index={2}
 						currentSlideIndex={currentSlideIndex}
