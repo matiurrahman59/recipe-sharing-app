@@ -1,12 +1,18 @@
-import { View, Text, TouchableOpacity, Image, ViewStyle } from 'react-native'
+import {
+	View,
+	TouchableOpacity,
+	Image,
+	ViewStyle,
+	StyleSheet,
+} from 'react-native'
 import { FC } from 'react'
+import { Link } from 'expo-router'
 import { Feather, FontAwesome } from '@expo/vector-icons'
+
 import { colors } from '@/theme'
 import CustomText from './CustomText'
 import BookmarkButton from './BookmarkButton'
 import RecipeRatings from './RecipeRatings'
-import { Link, useRouter } from 'expo-router'
-import { useNavigation } from '@react-navigation/native'
 
 type RecipeCardProps = {
 	item: {
@@ -18,15 +24,10 @@ type RecipeCardProps = {
 		image: any
 		authorImage: any
 	}
-
-	// onPress?: () => void
-
-	customProps?: ViewStyle
+	style?: ViewStyle
 }
 
-const RecipeCard: FC<RecipeCardProps> = ({ item, customProps }) => {
-	const router = useRouter()
-	const navigation = useNavigation()
+const RecipeCard: FC<RecipeCardProps> = ({ item, style }) => {
 	return (
 		<Link
 			href={{
@@ -35,69 +36,28 @@ const RecipeCard: FC<RecipeCardProps> = ({ item, customProps }) => {
 			}}
 			asChild
 		>
-			<TouchableOpacity style={customProps}>
-				<View
-					style={{
-						position: 'relative',
-						alignItems: 'center',
-						justifyContent: 'center',
-					}}
-				>
-					<Image
-						source={item.image}
-						style={{
-							width: '100%',
-							height: 180,
-							borderRadius: 12,
-						}}
-					/>
+			<TouchableOpacity style={style}>
+				<View style={styles.container}>
+					<Image source={item.image} style={styles.recipeImage} />
 
 					<RecipeRatings rating={item.rating} />
-
-					{/* bookmark icon */}
 					<BookmarkButton recipe={item} />
 
 					{/* video duration */}
-					<View
-						style={{
-							position: 'absolute',
-							bottom: 8,
-							right: 8,
-							borderRadius: 8,
-							paddingHorizontal: 8,
-							backgroundColor: 'rgba(48, 48, 48, 0.30)',
-						}}
-					>
-						<CustomText size={12} color={colors.palette.white}>
+					<View style={styles.videoDuration}>
+						<CustomText size={12} color={colors.white}>
 							{item.duration}
 						</CustomText>
 					</View>
 
 					{/* video play button */}
-					<View
-						style={{
-							backgroundColor: 'rgba(48, 48, 48, 0.30)',
-							position: 'absolute',
-							height: 48,
-							width: 48,
-							alignItems: 'center',
-							justifyContent: 'center',
-							borderRadius: 100,
-						}}
-					>
-						<FontAwesome name='play' size={20} color={colors.palette.white} />
+					<View style={styles.videoPlayButton}>
+						<FontAwesome name='play' size={20} color={colors.white} />
 					</View>
 				</View>
 
-				{/* recipe title */}
-				<View
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						marginTop: 12,
-					}}
-				>
+				{/* title */}
+				<View style={styles.titleContainer}>
 					<CustomText bold size={16} lineHeight={22.4}>
 						{item.title}
 					</CustomText>
@@ -108,14 +68,9 @@ const RecipeCard: FC<RecipeCardProps> = ({ item, customProps }) => {
 					/>
 				</View>
 
-				{/* recipe creator */}
-				<View
-					style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8 }}
-				>
-					<Image
-						source={item.authorImage}
-						style={{ marginRight: 8, height: 32, width: 32 }}
-					/>
+				{/* creator */}
+				<View style={styles.creatorContainer}>
+					<Image source={item.authorImage} style={styles.creatorImage} />
 					<CustomText size={10} color={colors.palette.neutral40}>
 						{item.author}
 					</CustomText>
@@ -126,3 +81,49 @@ const RecipeCard: FC<RecipeCardProps> = ({ item, customProps }) => {
 }
 
 export default RecipeCard
+
+const styles = StyleSheet.create({
+	container: {
+		position: 'relative',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	recipeImage: {
+		width: '100%',
+		height: 180,
+		borderRadius: 12,
+	},
+	videoDuration: {
+		position: 'absolute',
+		bottom: 8,
+		right: 8,
+		borderRadius: 8,
+		paddingHorizontal: 8,
+		backgroundColor: colors.palette.overlay60,
+	},
+	videoPlayButton: {
+		backgroundColor: colors.palette.overlay60,
+		position: 'absolute',
+		height: 48,
+		width: 48,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 100,
+	},
+	titleContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		marginTop: 12,
+	},
+	creatorContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 8,
+	},
+	creatorImage: {
+		marginRight: 8,
+		height: 32,
+		width: 32,
+	},
+})

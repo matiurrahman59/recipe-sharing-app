@@ -1,5 +1,6 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
+import { FlatList, TouchableOpacity, Image, ImageStyle } from 'react-native'
 import { FC } from 'react'
+
 import { popularCreators } from '@/data'
 import CustomText from './CustomText'
 
@@ -13,14 +14,7 @@ const PopularCreatorList: FC<PopularCreatorListProps> = ({}) => {
 			data={popularCreators}
 			renderItem={({ item }) => (
 				<TouchableOpacity style={{ marginRight: 12 }}>
-					<Image
-						source={item.image}
-						style={{
-							height: 75,
-							width: 75,
-							borderRadius: 100,
-						}}
-					/>
+					<Image source={item.image} style={$image} />
 					<CustomText
 						bold
 						size={12}
@@ -44,3 +38,9 @@ const PopularCreatorList: FC<PopularCreatorListProps> = ({}) => {
 }
 
 export default PopularCreatorList
+
+const $image: ImageStyle = {
+	height: 75,
+	width: 75,
+	borderRadius: 100,
+}

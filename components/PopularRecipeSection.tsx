@@ -1,5 +1,6 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
 import { FC, useState } from 'react'
+
 import SectionHeader from './SectionHeader'
 import { categoryList } from '@/data'
 import { colors } from '@/theme'
@@ -14,12 +15,7 @@ const PopularRecipeSection: FC<PopularRecipeSectionProps> = ({}) => {
 	return (
 		<>
 			<SectionHeader label='Popular category' />
-			<View
-				style={{
-					paddingTop: 16,
-					gap: 12,
-				}}
-			>
+			<View style={styles.container}>
 				<FlatList
 					horizontal
 					showsHorizontalScrollIndicator={false}
@@ -30,30 +26,23 @@ const PopularRecipeSection: FC<PopularRecipeSectionProps> = ({}) => {
 					renderItem={({ item }) => {
 						const isActive = item.id === activeCategory
 						return (
-							<View>
-								<TouchableOpacity
-									onPress={() => setActiveCategory(item.id)}
-									style={{
-										backgroundColor: isActive
-											? colors.palette.primary50
-											: 'transparent',
-										paddingHorizontal: 12,
-										paddingVertical: 8,
-										marginRight: 8,
-										borderRadius: 10,
-									}}
+							<TouchableOpacity
+								onPress={() => setActiveCategory(item.id)}
+								style={[
+									styles.tabbedButton,
+									{
+										backgroundColor: isActive ? colors.primary : 'transparent',
+									},
+								]}
+							>
+								<CustomText
+									bold
+									size={12}
+									color={isActive ? colors.white : colors.palette.primary30}
 								>
-									<CustomText
-										bold
-										size={12}
-										color={
-											isActive ? colors.palette.white : colors.palette.primary30
-										}
-									>
-										{item.title}
-									</CustomText>
-								</TouchableOpacity>
-							</View>
+									{item.title}
+								</CustomText>
+							</TouchableOpacity>
 						)
 					}}
 				/>
@@ -65,3 +54,16 @@ const PopularRecipeSection: FC<PopularRecipeSectionProps> = ({}) => {
 }
 
 export default PopularRecipeSection
+
+const styles = StyleSheet.create({
+	container: {
+		paddingTop: 16,
+		gap: 12,
+	},
+	tabbedButton: {
+		paddingHorizontal: 12,
+		paddingVertical: 8,
+		marginRight: 8,
+		borderRadius: 10,
+	},
+})

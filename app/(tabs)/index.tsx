@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { useState } from 'react'
+import { ScrollView } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -10,26 +10,17 @@ import SearchBar from '@/components/SearchBar'
 import TrendingRecipeSection from '@/components/TrendingRecipeSection'
 import { colors } from '@/theme'
 import PopularCreatorSection from '@/components/PopularCreatorSection'
-import Loader from '@/components/Loader'
-import Modal from 'react-native-modal'
 
 export default function Page() {
 	const [query, setQuery] = useState('')
-	// const [isLoading, setIsLoading] = useState(true)
 
-	// useEffect(() => {
-	// 	setTimeout(() => {
-	// 		setIsLoading(false)
-	// 	}, 2500)
-	// }, [])
 	return (
-		<SafeAreaView>
+		<SafeAreaView style={{ backgroundColor: colors.background }}>
 			<StatusBar backgroundColor='#fff' />
 
 			<ScrollView
 				contentContainerStyle={{
-					backgroundColor: colors.palette.white,
-					paddingTop: 30,
+					paddingTop: 20,
 				}}
 			>
 				<CustomText

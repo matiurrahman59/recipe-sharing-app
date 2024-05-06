@@ -1,8 +1,9 @@
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { Feather } from '@expo/vector-icons'
 import { FC } from 'react'
+
 import { colors } from '@/theme'
 import CustomText from './CustomText'
-import { Feather } from '@expo/vector-icons'
 
 interface NotificationMessageProps {
 	title: string
@@ -14,34 +15,11 @@ const NotificationMessage: FC<NotificationMessageProps> = ({
 	badge,
 }) => {
 	return (
-		<View
-			style={{
-				backgroundColor: colors.palette.neutral10,
-				flexDirection: 'row',
-				paddingVertical: 12,
-				paddingHorizontal: 16,
-				gap: 12,
-				borderRadius: 12,
-			}}
-		>
-			<View
-				style={{
-					backgroundColor: colors.palette.green10,
-					height: 28,
-					width: 28,
-					alignItems: 'center',
-					justifyContent: 'center',
-					borderRadius: 100,
-				}}
-			>
+		<View style={styles.container}>
+			<View style={styles.icon}>
 				<Feather name='save' size={16} color={colors.palette.success100} />
 			</View>
-			<View
-				style={{
-					flex: 1,
-					gap: 4,
-				}}
-			>
+			<View style={styles.messageContainer}>
 				<CustomText bold size={12}>
 					{title}
 				</CustomText>
@@ -55,18 +33,38 @@ const NotificationMessage: FC<NotificationMessageProps> = ({
 					Voluptatibus accusamus earum possimus incidunt illo impedit?
 				</CustomText>
 			</View>
-			{badge && (
-				<View
-					style={{
-						height: 6,
-						width: 6,
-						backgroundColor: colors.palette.primary50,
-						borderRadius: 100,
-					}}
-				/>
-			)}
+			{badge && <View style={styles.badge} />}
 		</View>
 	)
 }
 
 export default NotificationMessage
+
+const styles = StyleSheet.create({
+	container: {
+		backgroundColor: colors.palette.neutral10,
+		flexDirection: 'row',
+		paddingVertical: 12,
+		paddingHorizontal: 16,
+		gap: 12,
+		borderRadius: 12,
+	},
+	icon: {
+		backgroundColor: colors.palette.green10,
+		height: 28,
+		width: 28,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 100,
+	},
+	messageContainer: {
+		flex: 1,
+		gap: 4,
+	},
+	badge: {
+		height: 6,
+		width: 6,
+		backgroundColor: colors.primary,
+		borderRadius: 100,
+	},
+})

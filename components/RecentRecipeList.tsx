@@ -1,32 +1,24 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
-import { FC } from 'react'
+import {
+	FlatList,
+	TouchableOpacity,
+	Image,
+	ViewStyle,
+	ImageStyle,
+} from 'react-native'
+
 import { recentRecipes } from '@/data'
 import CustomText from './CustomText'
 import { colors } from '@/theme'
 
-interface RecentRecipeListProps {}
-
-const RecentRecipeList: FC<RecentRecipeListProps> = ({}) => {
+const RecentRecipeList = () => {
 	return (
 		<FlatList
 			horizontal
 			showsHorizontalScrollIndicator={false}
 			data={recentRecipes}
 			renderItem={({ item }) => (
-				<TouchableOpacity
-					style={{
-						width: 124,
-						marginRight: 16,
-					}}
-				>
-					<Image
-						source={item.image}
-						style={{
-							width: '100%',
-							height: 124,
-							borderRadius: 12,
-						}}
-					/>
+				<TouchableOpacity style={$container}>
+					<Image source={item.image} style={$image} />
 					<CustomText
 						bold
 						size={14}
@@ -57,3 +49,13 @@ const RecentRecipeList: FC<RecentRecipeListProps> = ({}) => {
 }
 
 export default RecentRecipeList
+
+const $container: ViewStyle = {
+	width: 124,
+	marginRight: 16,
+}
+const $image: ImageStyle = {
+	width: '100%',
+	height: 124,
+	borderRadius: 12,
+}

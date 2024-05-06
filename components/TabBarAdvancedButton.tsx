@@ -8,7 +8,7 @@ const TabBarAdvancedButton = ({ ...props }) => {
 			<Pressable
 				onPress={props.onPress}
 				style={{
-					backgroundColor: colors.palette.primary50,
+					backgroundColor: colors.primary,
 					position: 'absolute',
 					width: 48,
 					height: 48,
@@ -18,7 +18,7 @@ const TabBarAdvancedButton = ({ ...props }) => {
 					top: -22.5,
 				}}
 			>
-				<Feather name='plus' size={21} color={colors.palette.white} />
+				<Feather name='plus' size={21} color={colors.white} />
 			</Pressable>
 		</View>
 	)

@@ -1,11 +1,8 @@
-import { View, Text } from 'react-native'
-import { FC } from 'react'
+import { View } from 'react-native'
 import SectionHeader from './SectionHeader'
 import PopularCreatorList from './PopularCreatorList'
 
-interface PopularCreatorSectionProps {}
-
-const PopularCreatorSection: FC<PopularCreatorSectionProps> = ({}) => {
+const PopularCreatorSection = () => {
 	return (
 		<View
 			style={{

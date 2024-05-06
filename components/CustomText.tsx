@@ -1,4 +1,4 @@
-import { View, Text, TextStyle, TextProps } from 'react-native'
+import { Text, TextStyle } from 'react-native'
 import React, { FC } from 'react'
 import { colors, typography } from '@/theme'
 
@@ -25,10 +25,10 @@ const CustomText: FC<CustomTextProps> = ({
 		<Text
 			style={[
 				{
-					fontFamily: bold ? typography.fonts.bold : typography.fonts.regular,
+					fontFamily: bold ? typography.fonts.bold : typography.primary,
 					fontSize: size,
 					lineHeight: lineHeight,
-					color: color || colors.palette.neutral90,
+					color: color || colors.text,
 				},
 				customProps,
 			]}
@@ -40,49 +40,3 @@ const CustomText: FC<CustomTextProps> = ({
 }
 
 export default CustomText
-
-// 	// const bold: TextStyle = {
-// 	fontFamily: typography.fonts.bold,
-// }
-
-// const sm: TextStyle = {
-// 	fontFamily: typography.fonts.regular,
-// 	fontSize: 10,
-// }
-
-// const base: TextStyle = {
-// 	fontFamily: typography.fonts.regular,
-// }
-
-// const lg: TextStyle = {
-// 	...bold,
-// 	fontSize: 56,
-// 	lineHeight: 67,
-// }
-
-// const h1: TextStyle = {
-// 	...bold,
-// 	fontSize: 24,
-// 	lineHeight: 28.8,
-// }
-
-// const h2: TextStyle = {
-// 	...bold,
-// 	fontSize: 20,
-// }
-
-// const h3: TextStyle = {
-// 	...bold,
-// 	lineHeight: 22.4,
-// }
-
-// const h4: TextStyle = {
-// 	...bold,
-// 	fontSize: 14,
-// 	lineHeight: 19.6,
-// }
-
-// const h5: TextStyle = {
-// 	...bold,
-// 	fontSize: 12,
-// }

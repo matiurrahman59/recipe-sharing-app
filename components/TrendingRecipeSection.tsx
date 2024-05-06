@@ -19,7 +19,7 @@ const TrendingRecipeSection = () => {
 				renderItem={({ item }) => (
 					<RecipeCard
 						item={item}
-						customProps={{
+						style={{
 							width: 280,
 							marginRight: 16,
 						}}

@@ -24,7 +24,7 @@ export default SearchBar
 
 const $container: ViewStyle = {
 	flexDirection: 'row',
-	borderColor: colors.palette.neutral20,
+	borderColor: colors.border,
 	borderRadius: 10,
 	marginHorizontal: 20,
 	alignItems: 'center',

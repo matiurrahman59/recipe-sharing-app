@@ -1,11 +1,8 @@
-import { View, Text } from 'react-native'
-import { FC } from 'react'
+import { View } from 'react-native'
 import SectionHeader from './SectionHeader'
 import RecentRecipeList from './RecentRecipeList'
 
-interface RecentRecipeSectionProps {}
-
-const RecentRecipeSection: FC<RecentRecipeSectionProps> = ({}) => {
+const RecentRecipeSection = () => {
 	return (
 		<View style={{ marginTop: 24, gap: 16 }}>
 			<SectionHeader label='Recent recipe' button={true} />

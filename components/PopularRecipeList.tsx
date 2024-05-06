@@ -1,10 +1,16 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
+import {
+	View,
+	TouchableOpacity,
+	Image,
+	FlatList,
+	StyleSheet,
+} from 'react-native'
 import { FC } from 'react'
+import { Feather } from '@expo/vector-icons'
+
 import { colors } from '@/theme'
 import { popularCategory } from '@/data'
 import CustomText from './CustomText'
-import { Feather } from '@expo/vector-icons'
-import BookmarkButton from './BookmarkButton'
 
 interface PopularRecipeListProps {}
 
@@ -15,32 +21,13 @@ const PopularRecipeList: FC<PopularRecipeListProps> = ({}) => {
 			showsHorizontalScrollIndicator={false}
 			data={popularCategory}
 			renderItem={({ item }) => (
-				<TouchableOpacity
-					style={{
-						backgroundColor: colors.palette.neutral10,
-						width: 150,
-						marginTop: 70,
-						marginRight: 16,
-						paddingTop: 40,
-						paddingBottom: 12,
-						borderRadius: 12,
-						position: 'relative',
-					}}
-				>
-					<View
-						style={{
-							position: 'absolute',
-							top: '-50%',
-							left: 0,
-							right: 0,
-							alignItems: 'center',
-						}}
-					>
-						<Image
-							source={item.image}
-							style={{ height: 110, width: 110, borderRadius: 100 }}
-						/>
+				<TouchableOpacity style={styles.container}>
+					{/* image */}
+					<View style={styles.imageContainer}>
+						<Image source={item.image} style={styles.image} />
 					</View>
+
+					{/* title */}
 					<CustomText
 						bold
 						size={14}
@@ -52,36 +39,18 @@ const PopularRecipeList: FC<PopularRecipeListProps> = ({}) => {
 					>
 						{item.title}
 					</CustomText>
-					<View
-						style={{
-							marginTop: 18,
-							paddingHorizontal: 12,
-						}}
-					>
+
+					{/* details */}
+					<View style={styles.details}>
 						<CustomText size={16} color={colors.palette.neutral30}>
-							{item.duration}
+							Time
 						</CustomText>
-						<View
-							style={{
-								flexDirection: 'row',
-								justifyContent: 'space-between',
-								alignItems: 'center',
-							}}
-						>
+						<View style={styles.duration}>
 							<CustomText bold size={12}>
 								10 Mins
 							</CustomText>
 
-							<TouchableOpacity
-								style={{
-									backgroundColor: colors.palette.white,
-									height: 28,
-									width: 28,
-									alignItems: 'center',
-									justifyContent: 'center',
-									borderRadius: 100,
-								}}
-							>
+							<TouchableOpacity style={styles.button}>
 								<Feather
 									name='bookmark'
 									size={16}
@@ -101,3 +70,45 @@ const PopularRecipeList: FC<PopularRecipeListProps> = ({}) => {
 }
 
 export default PopularRecipeList
+
+const styles = StyleSheet.create({
+	container: {
+		backgroundColor: colors.palette.neutral10,
+		width: 150,
+		marginTop: 70,
+		marginRight: 16,
+		paddingTop: 40,
+		paddingBottom: 12,
+		borderRadius: 12,
+		position: 'relative',
+	},
+	imageContainer: {
+		position: 'absolute',
+		top: '-50%',
+		left: 0,
+		right: 0,
+		alignItems: 'center',
+	},
+	image: {
+		height: 110,
+		width: 110,
+		borderRadius: 100,
+	},
+	details: {
+		marginTop: 18,
+		paddingHorizontal: 12,
+	},
+	duration: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	button: {
+		backgroundColor: colors.background,
+		height: 28,
+		width: 28,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 100,
+	},
+})

@@ -1,7 +1,8 @@
-import { View, Text, TouchableOpacity, ViewStyle } from 'react-native'
+import { TouchableOpacity, ViewStyle } from 'react-native'
 import { FC } from 'react'
-import { colors } from '@/theme'
 import { Feather } from '@expo/vector-icons'
+
+import { colors } from '@/theme'
 import { useFavoriteContext } from '@/store'
 
 interface BookmarkButtonProps {
@@ -26,9 +27,7 @@ const BookmarkButton: FC<BookmarkButtonProps> = ({ recipe }) => {
 			style={[
 				$buttonContainer,
 				{
-					backgroundColor: isFavourite
-						? colors.palette.primary50
-						: colors.palette.white,
+					backgroundColor: isFavourite ? colors.primary : colors.white,
 				},
 			]}
 			onPress={() =>
@@ -38,7 +37,7 @@ const BookmarkButton: FC<BookmarkButtonProps> = ({ recipe }) => {
 			<Feather
 				name='bookmark'
 				size={22}
-				color={isFavourite ? colors.palette.white : colors.palette.neutral90}
+				color={isFavourite ? colors.white : colors.palette.neutral90}
 			/>
 		</TouchableOpacity>
 	)

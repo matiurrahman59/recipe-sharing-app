@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { Feather } from '@expo/vector-icons'
 import { Stack } from 'expo-router'
@@ -11,8 +11,7 @@ import TabbedButton from '@/components/TabbedButton'
 export default function Page() {
 	const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
 	return (
-		<View style={{ backgroundColor: colors.palette.white, flex: 1 }}>
-			{/* custom header */}
+		<View style={{ backgroundColor: colors.background, flex: 1 }}>
 			<Stack.Screen
 				options={{
 					headerRight: () => (
@@ -25,24 +24,12 @@ export default function Page() {
 							}}
 						/>
 					),
-					headerLeft: () => (
-						<CustomText bold size={24} customProps={{ marginLeft: 20 }}>
-							Notifications
-						</CustomText>
-					),
 				}}
 			/>
 
 			<View style={{ marginHorizontal: 20 }}>
 				{/* selected tabbed button */}
-				<View
-					style={{
-						flexDirection: 'row',
-						alignItems: 'center',
-						marginTop: 28,
-						gap: 8,
-					}}
-				>
+				<View style={styles.buttonContainer}>
 					<TabbedButton
 						title='All'
 						index={0}
@@ -70,12 +57,7 @@ export default function Page() {
 					<CustomText bold size={14} lineHeight={19.6}>
 						Today
 					</CustomText>
-					<View
-						style={{
-							marginTop: 12,
-							gap: 12,
-						}}
-					>
+					<View style={styles.notification}>
 						<NotificationMessage title='New recipe' badge />
 						<NotificationMessage
 							title="Don't forget to saved your recipe"
@@ -89,12 +71,7 @@ export default function Page() {
 					<CustomText bold size={14} lineHeight={19.6}>
 						Yesterday
 					</CustomText>
-					<View
-						style={{
-							marginTop: 12,
-							gap: 12,
-						}}
-					>
+					<View style={styles.notification}>
 						<NotificationMessage title="Don't forget to saved your recipe" />
 					</View>
 				</View>
@@ -102,3 +79,16 @@ export default function Page() {
 		</View>
 	)
 }
+
+const styles = StyleSheet.create({
+	buttonContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 10,
+		gap: 8,
+	},
+	notification: {
+		marginTop: 12,
+		gap: 12,
+	},
+})

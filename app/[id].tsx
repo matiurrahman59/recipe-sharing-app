@@ -1,6 +1,5 @@
 import {
 	View,
-	ScrollView,
 	Pressable,
 	Image,
 	TouchableOpacity,
@@ -12,14 +11,14 @@ import { useLocalSearchParams } from 'expo-router'
 import { AVPlaybackStatus, ResizeMode, Video } from 'expo-av'
 
 import { colors } from '@/theme'
-import CustomText from '@/components/CustomText'
 import { ingredientLists, trendingRecipes } from '@/data'
+import CustomText from '@/components/CustomText'
+import ScrollViewWrapper from '@/components/ScrollViewWrapper'
 
 const RecipeDetailsPage = () => {
 	const params = useLocalSearchParams()
 	const [recipe] = trendingRecipes.filter(item => item.id == +params.id)
 
-	const [showVideo, setShowVideo] = useState<boolean>(false)
 	const videoRef = useRef<Video>(null)
 	const [status, setStatus] = useState<AVPlaybackStatus>()
 
@@ -40,281 +39,247 @@ const RecipeDetailsPage = () => {
 	}
 
 	return (
-		<ScrollView
-			style={{
-				flex: 1,
-				backgroundColor: colors.palette.white,
-			}}
+		<ScrollViewWrapper
+			contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
 		>
+			<CustomText
+				bold
+				size={24}
+				lineHeight={28.8}
+				customProps={{ width: '90%' }}
+			>
+				{recipe.title}
+			</CustomText>
+
 			<View
 				style={{
-					marginHorizontal: 20,
-					marginBottom: 20,
+					gap: 16,
 				}}
 			>
-				{/* recipe title */}
-				<CustomText
-					bold
-					size={24}
-					lineHeight={28.8}
-					customProps={{ width: '90%' }}
-				>
-					{recipe.title}
-				</CustomText>
-
 				{/* recipe video container */}
-				<View
-					style={{
-						gap: 16,
-					}}
-				>
-					<View
-						style={{
-							marginTop: 24,
-							width: '100%',
-							height: 200,
-							borderRadius: 12,
-							overflow: 'hidden',
+				<View style={styles.videoContainer}>
+					<Video
+						ref={videoRef}
+						source={{
+							uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 						}}
-					>
-						<Video
-							ref={videoRef}
-							source={{
-								uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-							}}
-							style={{
-								width: '100%',
-								height: '100%',
-							}}
-							useNativeControls
-							resizeMode={ResizeMode.CONTAIN}
-							onPlaybackStatusUpdate={setStatus}
-						/>
+						style={styles.video}
+						useNativeControls
+						resizeMode={ResizeMode.CONTAIN}
+						onPlaybackStatusUpdate={setStatus}
+					/>
 
-						{!isPlaying && (
-							<Pressable
-								onPress={playRecipeVideo}
-								style={[
-									StyleSheet.absoluteFillObject,
-									{
-										alignItems: 'center',
-										justifyContent: 'center',
-									},
-								]}
-							>
-								<Image
-									source={recipe.image}
-									style={{
-										width: '100%',
-										height: '100%',
-										borderRadius: 12,
-									}}
-								/>
-								<View
-									style={{
-										backgroundColor: 'rgba(48, 48, 48, 0.30)',
-										position: 'absolute',
-										height: 48,
-										width: 48,
-										alignItems: 'center',
-										justifyContent: 'center',
-										borderRadius: 100,
-									}}
-								>
-									<FontAwesome
-										name='play'
-										size={20}
-										color={colors.palette.white}
-									/>
-								</View>
-							</Pressable>
-						)}
-					</View>
-
-					{/*item rating */}
-					<View
-						style={{
-							flexDirection: 'row',
-							alignItems: 'center',
-						}}
-					>
-						<View>
-							<FontAwesome
-								name='star'
-								size={16}
-								color={colors.palette.rating100}
-							/>
-						</View>
-						<View style={{ marginLeft: 4 }}>
-							<CustomText bold size={14} lineHeight={19.6}>
-								{recipe.rating}
-							</CustomText>
-						</View>
-						<View style={{ marginLeft: 8 }}>
-							<CustomText
-								size={14}
-								lineHeight={19.6}
-								color={colors.palette.neutral40}
-							>
-								(300 Reviews)
-							</CustomText>
-						</View>
-					</View>
-
-					{/* author profile */}
-					<View
-						style={{
-							flexDirection: 'row',
-							alignItems: 'center',
-							justifyContent: 'space-between',
-						}}
-					>
-						<View
-							style={{
-								flexDirection: 'row',
-								alignItems: 'center',
-								gap: 10,
-							}}
-						>
-							<Image
-								source={recipe.authorImage}
-								style={{
-									height: 40,
-									width: 40,
-									borderRadius: 100,
-								}}
-							/>
-							<View>
-								<CustomText
-									bold
-									size={16}
-									lineHeight={22.4}
-									color={colors.palette.neutral100}
-								>
-									{recipe.author}
-								</CustomText>
-								<View
-									style={{
-										flexDirection: 'row',
-										alignItems: 'center',
-									}}
-								>
-									<MaterialCommunityIcons
-										name='map-marker'
-										size={16}
-										color={colors.palette.primary50}
-									/>
-									<CustomText
-										size={14}
-										lineHeight={19.6}
-										color={colors.palette.neutral40}
-										customProps={{ marginLeft: 4 }}
-									>
-										Bali, Indonesia
-									</CustomText>
-								</View>
+					{!isPlaying && (
+						<Pressable onPress={playRecipeVideo} style={styles.videoOverlay}>
+							<Image source={recipe.image} style={styles.videoThumbnail} />
+							<View style={styles.playButton}>
+								<FontAwesome name='play' size={20} color={colors.white} />
 							</View>
-						</View>
+						</Pressable>
+					)}
+				</View>
 
-						<View>
-							<TouchableOpacity
-								style={{
-									backgroundColor: colors.palette.primary50,
-									paddingHorizontal: 16,
-									paddingVertical: 8,
-									borderRadius: 10,
-								}}
-							>
-								<CustomText
-									bold
-									size={14}
-									lineHeight={19.6}
-									color={colors.palette.white}
-								>
-									Follow
-								</CustomText>
-							</TouchableOpacity>
-						</View>
+				{/*item rating */}
+				<View style={styles.itemRating}>
+					<View>
+						<FontAwesome
+							name='star'
+							size={16}
+							color={colors.palette.rating100}
+						/>
+					</View>
+					<View style={{ marginLeft: 4 }}>
+						<CustomText bold size={14} lineHeight={19.6}>
+							{recipe.rating}
+						</CustomText>
+					</View>
+					<View style={{ marginLeft: 8 }}>
+						<CustomText
+							size={14}
+							lineHeight={19.6}
+							color={colors.palette.neutral40}
+						>
+							(300 Reviews)
+						</CustomText>
 					</View>
 				</View>
 
-				{/* ingredients */}
-				<View
-					style={{
-						marginTop: 26,
-						flexDirection: 'row',
-						alignItems: 'center',
-						justifyContent: 'space-between',
-					}}
-				>
-					<CustomText bold size={20}>
-						Ingredients
-					</CustomText>
-					<CustomText
-						size={14}
-						lineHeight={19.6}
-						color={colors.palette.neutral40}
-					>
-						5 items
-					</CustomText>
-				</View>
-
-				{/* ingredient details */}
-				<View
-					style={{
-						marginTop: 16,
-						gap: 12,
-					}}
-				>
-					{ingredientLists.map(item => (
-						<View
-							key={item.id}
-							style={{
-								backgroundColor: colors.palette.neutral10,
-								flexDirection: 'row',
-								alignItems: 'center',
-								justifyContent: 'space-between',
-								borderRadius: 12,
-								paddingHorizontal: 16,
-								paddingVertical: 12,
-							}}
-						>
+				{/* author profile */}
+				<View style={styles.authorProfileContainer}>
+					<View style={styles.authorProfile}>
+						<Image source={recipe.authorImage} style={styles.authorImage} />
+						<View>
+							<CustomText
+								bold
+								size={16}
+								lineHeight={22.4}
+								color={colors.palette.neutral100}
+							>
+								{recipe.author}
+							</CustomText>
 							<View
 								style={{
 									flexDirection: 'row',
 									alignItems: 'center',
-									gap: 16,
 								}}
 							>
-								<View
-									style={{
-										backgroundColor: colors.palette.white,
-										paddingHorizontal: 12,
-										paddingVertical: 10,
-										borderRadius: 10,
-									}}
+								<MaterialCommunityIcons
+									name='map-marker'
+									size={16}
+									color={colors.palette.primary50}
+								/>
+								<CustomText
+									size={14}
+									lineHeight={19.6}
+									color={colors.palette.neutral40}
+									customProps={{ marginLeft: 4 }}
 								>
-									<CustomText size={30}>{item.icon}</CustomText>
-								</View>
-								<View>
-									<CustomText bold size={16} lineHeight={22.4}>
-										{item.name}
-									</CustomText>
-								</View>
+									Bali, Indonesia
+								</CustomText>
 							</View>
-							<CustomText
-								size={14}
-								lineHeight={19.6}
-								color={colors.palette.neutral40}
-							>
-								{item.quantity}
-							</CustomText>
 						</View>
-					))}
+					</View>
+
+					<TouchableOpacity style={styles.button}>
+						<CustomText bold size={14} lineHeight={19.6} color={colors.white}>
+							Follow
+						</CustomText>
+					</TouchableOpacity>
 				</View>
 			</View>
-		</ScrollView>
+
+			{/* ingredients */}
+			<View style={styles.ingredientsWrapper}>
+				<CustomText bold size={20}>
+					Ingredients
+				</CustomText>
+				<CustomText
+					size={14}
+					lineHeight={19.6}
+					color={colors.palette.neutral40}
+				>
+					5 items
+				</CustomText>
+			</View>
+
+			{/* ingredient details */}
+			<View style={styles.ingredientDetailsWrapper}>
+				{ingredientLists.map(item => (
+					<View key={item.id} style={styles.ingredientListsWrapper}>
+						<View
+							style={{
+								flexDirection: 'row',
+								alignItems: 'center',
+								gap: 16,
+							}}
+						>
+							<View style={styles.ingredientIcon}>
+								<CustomText size={30}>{item.icon}</CustomText>
+							</View>
+							<View>
+								<CustomText bold size={16} lineHeight={22.4}>
+									{item.name}
+								</CustomText>
+							</View>
+						</View>
+						<CustomText
+							size={14}
+							lineHeight={19.6}
+							color={colors.palette.neutral40}
+						>
+							{item.quantity}
+						</CustomText>
+					</View>
+				))}
+			</View>
+		</ScrollViewWrapper>
 	)
 }
 
 export default RecipeDetailsPage
+
+const styles = StyleSheet.create({
+	container: {
+		marginBottom: 20,
+	},
+	videoContainer: {
+		marginTop: 24,
+		width: '100%',
+		height: 200,
+		borderRadius: 12,
+		overflow: 'hidden',
+	},
+	video: {
+		width: '100%',
+		height: '100%',
+	},
+	videoOverlay: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		...StyleSheet.absoluteFillObject,
+	},
+	videoThumbnail: {
+		width: '100%',
+		height: '100%',
+		borderRadius: 12,
+	},
+	playButton: {
+		backgroundColor: colors.palette.overlay60,
+		position: 'absolute',
+		height: 48,
+		width: 48,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 100,
+	},
+	itemRating: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	authorProfileContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
+	authorProfile: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 10,
+	},
+	authorImage: {
+		height: 40,
+		width: 40,
+		borderRadius: 100,
+	},
+	button: {
+		backgroundColor: colors.primary,
+		paddingHorizontal: 16,
+		paddingVertical: 8,
+		borderRadius: 10,
+	},
+	ingredientsWrapper: {
+		marginTop: 26,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
+	ingredientDetailsWrapper: {
+		marginTop: 16,
+		gap: 12,
+	},
+	ingredientListsWrapper: {
+		backgroundColor: colors.palette.neutral10,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		borderRadius: 12,
+		paddingHorizontal: 16,
+		paddingVertical: 12,
+	},
+	ingredientIcon: {
+		backgroundColor: colors.background,
+		paddingHorizontal: 12,
+		paddingVertical: 10,
+		borderRadius: 10,
+	},
+})

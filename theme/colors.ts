@@ -54,43 +54,20 @@ const palette = {
 	overlay05: 'rgba(0, 0, 0, 0.5)',
 	overlay20: 'rgba(25, 16, 21, 0.2)',
 	overlay50: 'rgba(25, 16, 21, 0.5)',
+	overlay60: 'rgba(48, 48, 48, 0.30)',
 } as const
 
 export const colors = {
-	/**
-	 * The palette is available to use, but prefer using the name.
-	 * This is only included for rare, one-off cases. Try to use
-	 * semantic names as much as possible.
-	 */
 	palette,
-	/**
-	 * A helper for making something see-thru.
-	 */
+	primary: palette.primary50,
 	transparent: 'rgba(0, 0, 0, 0)',
-	/**
-	 * The default text color in many components.
-	 */
-	// text: palette.neutral800,
-	/**
-	 * Secondary text information.
-	 */
-	// textDim: palette.neutral600,
-	/**
-	 * The default color of the screen background.
-	 */
-	// background: palette.neutral200,
-	/**
-	 * The default border color.
-	 */
-	// border: palette.neutral400,
-	/**
-	 * The main tinting color.
-	 */
-	// tint: palette.primary500,
-	/**
-	 * A subtle color used for lines.
-	 */
-	// separator: palette.neutral300,
+	text: palette.neutral90,
+	white: palette.white,
+	background: palette.white,
+	border: palette.neutral20,
+	tint: palette.primary50,
+	inactiveTint: palette.neutral30,
+	separator: palette.neutral20,
 	/**
 	 * Error messages.
 	 */

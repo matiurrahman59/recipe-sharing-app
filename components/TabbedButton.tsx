@@ -29,9 +29,7 @@ const TabbedButton: FC<TabbedButtonProps> = ({
 				onPress={onPress}
 				style={{
 					backgroundColor:
-						index === currentSlideIndex
-							? colors.palette.primary50
-							: colors.palette.white,
+						index === currentSlideIndex ? colors.primary : colors.white,
 					alignItems: 'center',
 					paddingHorizontal: 12,
 					paddingVertical: 8,
@@ -43,7 +41,7 @@ const TabbedButton: FC<TabbedButtonProps> = ({
 					size={12}
 					color={
 						index === currentSlideIndex
-							? colors.palette.white
+							? colors.white
 							: colors.palette.primary30
 					}
 				>
