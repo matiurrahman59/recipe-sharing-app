@@ -173,6 +173,15 @@ export const recentRecipes = [
 		image: Images.recentRecipe1,
 	},
 ]
+export type recipeType = {
+	id: number
+	title: string
+	rating: number
+	duration: string
+	author: string
+	image: any
+	authorImage: any
+}
 
 export const trendingRecipes = [
 	{

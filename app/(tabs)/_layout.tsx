@@ -49,6 +49,11 @@ export default function TabLayout() {
 					options={{
 						title: 'Create recipe',
 						tabBarButton: props => <TabBarAdvancedButton {...props} />,
+						headerTitleStyle: {
+							fontSize: 24,
+							fontFamily: typography.fonts.bold,
+							color: colors.palette.neutral90,
+						},
 					}}
 				/>
 				<Tabs.Screen

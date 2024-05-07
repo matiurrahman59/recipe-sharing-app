@@ -1,42 +1,16 @@
-import {
-	View,
-	Pressable,
-	Image,
-	TouchableOpacity,
-	StyleSheet,
-} from 'react-native'
-import { useRef, useState } from 'react'
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useLocalSearchParams } from 'expo-router'
-import { AVPlaybackStatus, ResizeMode, Video } from 'expo-av'
 
 import { colors } from '@/theme'
 import { ingredientLists, trendingRecipes } from '@/data'
 import CustomText from '@/components/CustomText'
 import ScrollViewWrapper from '@/components/ScrollViewWrapper'
+import VideoPlayer from '@/components/VideoPlayer'
 
 const RecipeDetailsPage = () => {
 	const params = useLocalSearchParams()
 	const [recipe] = trendingRecipes.filter(item => item.id == +params.id)
-
-	const videoRef = useRef<Video>(null)
-	const [status, setStatus] = useState<AVPlaybackStatus>()
-
-	const isPlaying = status?.isLoaded && status.isPlaying
-
-	const playRecipeVideo = () => {
-		if (!videoRef.current) {
-			return
-		}
-
-		videoRef.current.playAsync()
-
-		// if (isPlaying) {
-		// 	videoRef.current.pauseAsync()
-		// } else {
-		// 	videoRef.current.playAsync()
-		// }
-	}
 
 	return (
 		<ScrollViewWrapper
@@ -56,28 +30,7 @@ const RecipeDetailsPage = () => {
 					gap: 16,
 				}}
 			>
-				{/* recipe video container */}
-				<View style={styles.videoContainer}>
-					<Video
-						ref={videoRef}
-						source={{
-							uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-						}}
-						style={styles.video}
-						useNativeControls
-						resizeMode={ResizeMode.CONTAIN}
-						onPlaybackStatusUpdate={setStatus}
-					/>
-
-					{!isPlaying && (
-						<Pressable onPress={playRecipeVideo} style={styles.videoOverlay}>
-							<Image source={recipe.image} style={styles.videoThumbnail} />
-							<View style={styles.playButton}>
-								<FontAwesome name='play' size={20} color={colors.white} />
-							</View>
-						</Pressable>
-					)}
-				</View>
+				<VideoPlayer recipe={recipe} />
 
 				{/*item rating */}
 				<View style={styles.itemRating}>
