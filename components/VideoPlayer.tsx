@@ -21,13 +21,13 @@ export default function VideoPlayer({ recipe }: { recipe: recipeType }) {
 	const [status, setStatus] = useState<AVPlaybackStatus>()
 	const [duration, setDuration] = useState(0)
 	// const [totalDuration, setTotalDuration] = useState(null)
-	console.log(duration)
+	// console.log(duration)
 	const isPlaying = status?.isLoaded && status.isPlaying
 
 	const totalDuration =
 		status?.isLoaded && (status.durationMillis! % 60000) / 1000
 
-	console.log('---total---', totalDuration)
+	// console.log('---total---', totalDuration)
 
 	const playRecipeVideo = () => {
 		if (!videoRef.current) {
