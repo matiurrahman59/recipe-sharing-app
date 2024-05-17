@@ -1,12 +1,11 @@
-import { View, ScrollView } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { Stack } from "expo-router";
+import { Feather } from '@expo/vector-icons'
+import { Stack } from 'expo-router'
 
-import { colors } from "@/theme";
-import UserDetails from "@/components/UserDetails";
-import SeparatorLine from "@/components/SeparatorLine";
-import UserData from "@/components/UserData";
-import ScrollViewWrapper from "@/components/ScrollViewWrapper";
+import { colors } from '@/theme'
+import UserDetails from '@/components/UserDetails'
+import SeparatorLine from '@/components/SeparatorLine'
+import UserData from '@/components/UserData'
+import ScrollViewWrapper from '@/components/ScrollViewWrapper'
 
 export default function Page() {
   return (
@@ -29,5 +28,5 @@ export default function Page() {
       <SeparatorLine />
       <UserData />
     </ScrollViewWrapper>
-  );
+  )
 }
